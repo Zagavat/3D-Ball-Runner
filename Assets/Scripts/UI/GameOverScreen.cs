@@ -13,7 +13,6 @@ public class GameOverScreen : Screen
         CanvasGroup.alpha = 0;
         StartButton.interactable = false;
         ExitButton.interactable = false;
-        Debug.Log("Закрываю Гамовер окно");
     }
 
     public override void Open()

@@ -61,25 +61,19 @@ public class PlayerMove : MonoBehaviour
         {
             _isJumping = false;
             _isJump = false;
-            _moveDirection.y = 0f;
+            _moveDirection.y = _startPosition.y;
         }
+    }
 
-        if (_characterController.isGrounded != true && _isJump == true)
-        {
-            _isJumping = false;
-            _isJump = false;
-        }
-
+    private void FixedUpdate()
+    {
         if (transform.position.y < _deathYPosition)
         {
-            Debug.Log("Помер" + transform.position + " " + _deathYPosition);
             _isJump = false;
             _isJumping = false;
-            _moveDirection.y = 0;
             transform.SetPositionAndRotation(_startPosition, Quaternion.identity);
-            Debug.Log(transform.position);
+            _moveDirection.z = 0;
             Die();
-            Debug.Log(Time.timeScale);
         }
     }
 

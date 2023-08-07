@@ -6,17 +6,20 @@ using UnityEngine;
 public class Spawn : RoadPool
 {
     [SerializeField] private Destroyer _destroyer;
+    [SerializeField] private PlayerMove _playerScript;
 
     private int _spawnedRoadCount = 3;
 
     private void OnEnable()
     {
         _destroyer.RoadDestroyTriggerReached += DestroyRoad;
+        _playerScript.ShitHappened += StartSpawn;
     }
 
     private void OnDisable()
     {
         _destroyer.RoadDestroyTriggerReached -= DestroyRoad;
+        _playerScript.ShitHappened -= StartSpawn;
     }
 
     private void Start()
@@ -42,7 +45,6 @@ public class Spawn : RoadPool
         {
             newRoad.transform.parent = null;
             roadScript = newRoad.GetComponentInChildren<RoadMove>();
-            roadScript.SetPitching();
             roadScale = lastSpawned.GetComponentInChildren<Road>().transform.localScale;
 
             if(newRoad == lastSpawned)
@@ -52,6 +54,7 @@ public class Spawn : RoadPool
             else
             {
                 position = new Vector3(lastSpawned.transform.position.x + roadScale.x, 0, 0);
+                roadScript.SetPitching();
             }
 
             newRoad.transform.SetPositionAndRotation(position, Quaternion.identity);

@@ -6,29 +6,28 @@ using TMPro;
 public class GemsCounter : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private PlayerMove _playerMove;
+    [SerializeField] private TMP_Text _gemsCount;
 
-    private string _scoreLabel;
 
-    public TMP_Text gemsCount;
+    private string _scoreLabel = "";
 
     private void OnEnable()
     {
-        _playerMove.GemCollected += Increase;
+        _player.OnGemsCountChanged += ChangeGemsCount;
     }
 
     private void OnDisable()
     {
-        _playerMove.GemCollected -= Increase;
+        _player.OnGemsCountChanged -= ChangeGemsCount;
     }
 
-    private void Start()
+    private void Awake()
     {
-        _scoreLabel = gemsCount.text;
+        _scoreLabel = _gemsCount.text;
     }
 
-    private void Increase()
+    private void ChangeGemsCount(int value)
     {
-        gemsCount.text = _scoreLabel + _player.GetGemsCount().ToString();
+        _gemsCount.text = _scoreLabel + value.ToString();
     }
 }
