@@ -39,9 +39,4 @@ public class RoadMove : MonoBehaviour
     {
         _isPitching = Random.Range(0, 100) < _pitchingPercent;
     }
-
-    public Vector3 GetTileLocalScale()
-    {
-        return _roadTile.localScale;
-    }
 }

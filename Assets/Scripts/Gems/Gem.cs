@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gem : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _collectEffect;
+    private EffectsPool _effectsPool;
+
+    private void Start()
+    {
+        _effectsPool = FindObjectOfType<EffectsPool>();
+    }
 
     public void StartCollectEffect()
     {
-        var effect = Instantiate(_collectEffect);
-        effect.transform.parent = null;
-        effect.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        _effectsPool.PlayCollectEffect(transform.position);
         gameObject.SetActive(false);
-        Destroy(effect.gameObject, 0.5f);
     }
 }

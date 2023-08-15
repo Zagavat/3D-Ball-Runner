@@ -20,15 +20,19 @@ public class GameOverScreen : Screen
         CanvasGroup.alpha = 1;
         StartButton.interactable = true;
         ExitButton.interactable = true;
+        HealthBar.SetActive(false);
     }
 
     protected override void OnExitButtonClick()
     {
+        audioSource.Play();
         ExitButtonClick?.Invoke();
     }
 
     protected override void OnStartButtonClick()
     {
+        audioSource.Play();
+        HealthBar.SetActive(true);
         RestartButtonClick?.Invoke();
     }
 }

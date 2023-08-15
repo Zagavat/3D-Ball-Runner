@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8692040680057219066}
   - component: {fileID: 8692040680057219067}
   - component: {fileID: 8692040680057219068}
-  - component: {fileID: 8692040680057219063}
   - component: {fileID: 8692040680057219061}
   - component: {fileID: 8692040680057219060}
+  - component: {fileID: 9155305972328149277}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 13.815, z: 0}
 --- !u!33 &8692040680057219066
 MeshFilter:
@@ -100,21 +100,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8692040680057219063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8692040680057219070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae1db777aa42f5a40b5e44f925719911, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slideSpeed: 5
-  _jumpForce: 5
-  _roadScript: {fileID: 0}
 --- !u!114 &8692040680057219061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dc46a191265594e929aaf4b5c0e233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moving: {fileID: 8692040680057219063}
+  _moving: {fileID: 9155305972328149277}
+  _livesOnStart: 5
 --- !u!143 &8692040680057219060
 CharacterController:
   m_ObjectHideFlags: 0
@@ -146,3 +132,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9155305972328149277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692040680057219070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1db777aa42f5a40b5e44f925719911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slideSpeed: 6
+  _jumpForce: 5
+  _roadScript: {fileID: -3842300260215567804, guid: 4440e4bbb1439294990930366069a831, type: 3}

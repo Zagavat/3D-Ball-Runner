@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     private void IncreaseCollectedGems()
     {
         _collectedGems++;
-        OnGemsCountChanged(_collectedGems);
+        OnGemsCountChanged?.Invoke(_collectedGems);
     }
 
     private void LoseLive()

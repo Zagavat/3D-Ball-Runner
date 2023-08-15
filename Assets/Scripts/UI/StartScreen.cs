@@ -14,6 +14,7 @@ public class StartScreen : Screen
         CanvasGroup.alpha = 0;
         StartButton.interactable = false;
         ExitButton.interactable = false;
+        HealthBar.SetActive(true);
     }
 
     public override void Open()
@@ -25,11 +26,13 @@ public class StartScreen : Screen
 
     protected override void OnExitButtonClick()
     {
+        audioSource.Play();
         ExitButtonClick?.Invoke();
     }
 
     protected override void OnStartButtonClick()
     {
+        audioSource.Play();
         StartButtonClick?.Invoke();
     }
 }

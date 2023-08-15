@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private RoadMove _roadScript;
-
+    
     private CharacterController _characterController;
     private float _gravity = 9.81f;
     private bool _isJump = false;
@@ -21,11 +21,14 @@ public class PlayerMove : MonoBehaviour
     private float _forwardRotationSpeed;
     private float _directionAngle;
     private Vector3 _startPosition;
-    private float _deathYPosition = -10f;
+    private float _deathYPosition = -15f;
+    private float _criticalYPosition = -3f;
 
     public event UnityAction GemCollected;
     public event UnityAction ShitHappened;
-
+    public event UnityAction<Vector3> Died;
+    public event UnityAction<Vector3> Rolling;
+    public event UnityAction<Vector3> Jump;
 
     private void Start()
     {
@@ -44,10 +47,13 @@ public class PlayerMove : MonoBehaviour
 
         if (_characterController.isGrounded == true)
         {
+            Rolling?.Invoke(transform.position);
+
             if (_isJump == true)
             {
                 _isJumping = true;
                 _moveDirection.y = _jumpForce;
+                Jump?.Invoke(transform.position);
             }
 
             SlopeSliding();
@@ -67,13 +73,18 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (transform.position.y < _deathYPosition)
+        if(transform.position.y < _criticalYPosition)
         {
-            _isJump = false;
-            _isJumping = false;
-            transform.SetPositionAndRotation(_startPosition, Quaternion.identity);
-            _moveDirection.z = 0;
-            Die();
+            Died?.Invoke(transform.position);
+
+            if (transform.position.y < _deathYPosition)
+            {
+                _isJump = false;
+                _isJumping = false;
+                transform.SetPositionAndRotation(_startPosition, Quaternion.identity);
+                _moveDirection = Vector3.zero;
+                Die();
+            }
         }
     }
 
@@ -141,6 +152,7 @@ public class PlayerMove : MonoBehaviour
             {
                 gem.StartCollectEffect();
             }
+
             GemCollected?.Invoke();
         }
     }
