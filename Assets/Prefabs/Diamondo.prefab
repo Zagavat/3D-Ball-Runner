@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8005465d786a84996422c938d9261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectEffect: {fileID: 8663390338357677005, guid: 48255dce33b8f57418882658b5e6746c, type: 3}
+  _effectsPool: {fileID: 3692239782155667854, guid: 82ff44ca181d8de4ba58b85688d0bc54, type: 3}

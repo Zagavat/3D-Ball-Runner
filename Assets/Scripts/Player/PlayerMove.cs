@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private RoadMove _roadScript;
-    
+
     private CharacterController _characterController;
     private float _gravity = 9.81f;
     private bool _isJump = false;
@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
     private float _deathYPosition = -15f;
     private float _criticalYPosition = -3f;
 
-    public event UnityAction GemCollected;
+    public event UnityAction<Vector3> GemCollected;
     public event UnityAction ShitHappened;
     public event UnityAction<Vector3> Died;
     public event UnityAction<Vector3> Rolling;
@@ -73,7 +73,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(transform.position.y < _criticalYPosition)
+        if (transform.position.y < _criticalYPosition)
         {
             Died?.Invoke(transform.position);
 
@@ -141,19 +141,16 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Jumper")
+        if (other.TryGetComponent<Jumper>(out Jumper jumper) == true)
         {
             _isJump = true;
         }
 
-        if (other.tag == "Collect")
+        if (other.TryGetComponent(out Gem gem) == true)
         {
-            if (other.TryGetComponent(out Gem gem))
-            {
-                gem.StartCollectEffect();
-            }
-
-            GemCollected?.Invoke();
+            gem.Collect();
+            GemCollected?.Invoke(other.transform.position);
         }
+
     }
 }

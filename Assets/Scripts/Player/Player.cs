@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
         ResetPlayer();
     }
 
-    private void IncreaseCollectedGems()
+    private void IncreaseCollectedGems(Vector3 crutch)
     {
         _collectedGems++;
         OnGemsCountChanged?.Invoke(_collectedGems);

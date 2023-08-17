@@ -24,6 +24,7 @@ public class EffectsPool : MonoBehaviour
         _playerScript.Jump += PlayJumpEffect;
         _playerScript.Rolling += PlayRollingEffect;
         _playerScript.Died += PlayDieEffect;
+        _playerScript.GemCollected += PlayCollectEffect;
     }
 
     private void OnDisable()
@@ -107,7 +108,7 @@ public class EffectsPool : MonoBehaviour
         }
     }
 
-    public void PlayCollectEffect(Vector3 position)
+    private void PlayCollectEffect(Vector3 position)
     {
         var effect = _collectEffectsPool.Where(p => p.activeSelf == false).FirstOrDefault();
         AudioSource audioSource;

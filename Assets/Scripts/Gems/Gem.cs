@@ -5,16 +5,8 @@ using UnityEngine.UI;
 
 public class Gem : MonoBehaviour
 {
-    private EffectsPool _effectsPool;
-
-    private void Start()
+    public void Collect()
     {
-        _effectsPool = FindObjectOfType<EffectsPool>();
-    }
-
-    public void StartCollectEffect()
-    {
-        _effectsPool.PlayCollectEffect(transform.position);
         gameObject.SetActive(false);
     }
 }
