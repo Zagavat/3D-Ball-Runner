@@ -88,6 +88,21 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Jumper>(out Jumper jumper) == true)
+        {
+            _isJump = true;
+        }
+
+        if (other.TryGetComponent(out Gem gem) == true)
+        {
+            gem.Collect();
+            GemCollected?.Invoke(other.transform.position);
+        }
+
+    }
+
     private void Die()
     {
         ShitHappened?.Invoke();
@@ -137,20 +152,5 @@ public class PlayerMove : MonoBehaviour
                 _moveDirection += Vector3.ProjectOnPlane(hit.normal, Vector3.right) * _slideSpeed * Time.deltaTime * _gravity;
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<Jumper>(out Jumper jumper) == true)
-        {
-            _isJump = true;
-        }
-
-        if (other.TryGetComponent(out Gem gem) == true)
-        {
-            gem.Collect();
-            GemCollected?.Invoke(other.transform.position);
-        }
-
     }
 }

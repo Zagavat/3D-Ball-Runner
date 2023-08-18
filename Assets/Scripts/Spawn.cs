@@ -12,14 +12,14 @@ public class Spawn : RoadPool
 
     private void OnEnable()
     {
-        _destroyer.RoadDestroyTriggerReached += DestroyRoad;
-        _playerScript.ShitHappened += StartSpawn;
+        _destroyer.RoadDestroyTriggerReached += OnRoadDestroyTriggerReached;
+        _playerScript.ShitHappened += OnShitHappened;
     }
 
     private void OnDisable()
     {
-        _destroyer.RoadDestroyTriggerReached -= DestroyRoad;
-        _playerScript.ShitHappened -= StartSpawn;
+        _destroyer.RoadDestroyTriggerReached -= OnRoadDestroyTriggerReached;
+        _playerScript.ShitHappened -= OnShitHappened;
     }
 
     private void Start()
@@ -27,7 +27,7 @@ public class Spawn : RoadPool
         Initialize();
     }
 
-    private void DestroyRoad(GameObject target)
+    private void OnRoadDestroyTriggerReached(GameObject target)
     {
         target.SetActive(false);
         SpawnNewRoad();
@@ -67,7 +67,7 @@ public class Spawn : RoadPool
         }
     }
 
-    public void StartSpawn()
+    public void OnShitHappened()
     {
         ResetPool();
 

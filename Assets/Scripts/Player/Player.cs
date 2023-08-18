@@ -11,20 +11,20 @@ public class Player : MonoBehaviour
     private int _collectedGems = 0;
     private int _lives;
 
-    public event UnityAction<int> OnGemsCountChanged;
-    public event UnityAction<int> OnHealthChanged;
-    public event UnityAction OnDead;
+    public event UnityAction<int> GemsCountChanged;
+    public event UnityAction<int> HealthChanged;
+    public event UnityAction Dead;
 
     private void OnEnable()
     {
-        _moving.GemCollected += IncreaseCollectedGems;
-        _moving.ShitHappened += LoseLive;
+        _moving.GemCollected += OnGemCollected;
+        _moving.ShitHappened += OnShitHappened;
     }
 
     private void OnDisable()
     {
-        _moving.GemCollected -= IncreaseCollectedGems;
-        _moving.ShitHappened -= LoseLive;
+        _moving.GemCollected -= OnGemCollected;
+        _moving.ShitHappened -= OnShitHappened;
     }
 
     private void Start()
@@ -32,20 +32,20 @@ public class Player : MonoBehaviour
         ResetPlayer();
     }
 
-    private void IncreaseCollectedGems(Vector3 crutch)
+    private void OnGemCollected(Vector3 crutch)
     {
         _collectedGems++;
-        OnGemsCountChanged?.Invoke(_collectedGems);
+        GemsCountChanged?.Invoke(_collectedGems);
     }
 
-    private void LoseLive()
+    private void OnShitHappened()
     {
         _lives--;
-        OnHealthChanged?.Invoke(_lives);
+        HealthChanged?.Invoke(_lives);
 
         if (_lives == 0)
         {
-            OnDead?.Invoke();
+            Dead?.Invoke();
         }
     }
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     {
         _collectedGems = 0;
         _lives = _livesOnStart;
-        OnGemsCountChanged?.Invoke(_collectedGems);
-        OnHealthChanged?.Invoke(_lives);
+        GemsCountChanged?.Invoke(_collectedGems);
+        HealthChanged?.Invoke(_lives);
     }
 }

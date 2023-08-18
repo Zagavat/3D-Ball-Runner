@@ -11,12 +11,12 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.OnHealthChanged += OnHealthChanged;
+        _player.HealthChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _player.OnHealthChanged -= OnHealthChanged;
+        _player.HealthChanged -= OnHealthChanged;
     }
 
     private void OnHealthChanged(int value)

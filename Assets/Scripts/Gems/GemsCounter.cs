@@ -13,12 +13,12 @@ public class GemsCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.OnGemsCountChanged += ChangeGemsCount;
+        _player.GemsCountChanged += OnGemsCountChanged;
     }
 
     private void OnDisable()
     {
-        _player.OnGemsCountChanged -= ChangeGemsCount;
+        _player.GemsCountChanged -= OnGemsCountChanged;
     }
 
     private void Awake()
@@ -26,7 +26,7 @@ public class GemsCounter : MonoBehaviour
         _scoreLabel = _gemsCount.text;
     }
 
-    private void ChangeGemsCount(int value)
+    private void OnGemsCountChanged(int value)
     {
         _gemsCount.text = _scoreLabel + value.ToString();
     }

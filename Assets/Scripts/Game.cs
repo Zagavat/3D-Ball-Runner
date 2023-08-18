@@ -17,7 +17,7 @@ public class Game : MonoBehaviour
         _startScreen.ExitButtonClick += OnExitButtonClick;
         _gameOverScreen.RestartButtonClick += OnRestartBattonClick;
         _gameOverScreen.ExitButtonClick += OnExitButtonClick;
-        _player.OnDead += GameOver;
+        _player.Dead += OnDead;
     }
 
     private void OnDisable()
@@ -26,12 +26,12 @@ public class Game : MonoBehaviour
         _startScreen.ExitButtonClick -= OnExitButtonClick;
         _gameOverScreen.RestartButtonClick -= OnRestartBattonClick;
         _gameOverScreen.ExitButtonClick -= OnExitButtonClick;
-        _player.OnDead -= GameOver;
+        _player.Dead -= OnDead;
     }
 
     private void Start()
     {
-        _spawn.StartSpawn();
+        _spawn.OnShitHappened();
         Time.timeScale = 0;
         _startScreen.Open();
     }
@@ -59,7 +59,7 @@ public class Game : MonoBehaviour
         _player.ResetPlayer();
     }
 
-    private void GameOver()
+    private void OnDead()
     {
         _gameOverScreen.Open();
         Time.timeScale = 0;

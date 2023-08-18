@@ -20,19 +20,19 @@ public class EffectsPool : MonoBehaviour
 
     private void OnEnable()
     {
-        _effectsBar.EffectsValueChanged += ChangeVolume;
-        _playerScript.Jump += PlayJumpEffect;
-        _playerScript.Rolling += PlayRollingEffect;
-        _playerScript.Died += PlayDieEffect;
-        _playerScript.GemCollected += PlayCollectEffect;
+        _effectsBar.EffectsValueChanged += OnEffectsValueChanged;
+        _playerScript.Jump += OnJump;
+        _playerScript.Rolling += OnRolling;
+        _playerScript.Died += OnDied;
+        _playerScript.GemCollected += OnGemCollected;
     }
 
     private void OnDisable()
     {
-        _effectsBar.EffectsValueChanged += ChangeVolume;
-        _playerScript.Jump -= PlayJumpEffect;
-        _playerScript.Rolling -= PlayRollingEffect;
-        _playerScript.Died -= PlayDieEffect;
+        _effectsBar.EffectsValueChanged += OnEffectsValueChanged;
+        _playerScript.Jump -= OnJump;
+        _playerScript.Rolling -= OnRolling;
+        _playerScript.Died -= OnDied;
     }
 
     private void Start()
@@ -42,7 +42,7 @@ public class EffectsPool : MonoBehaviour
         Initialize();
     }
 
-    private void ChangeVolume(float value)
+    private void OnEffectsValueChanged(float value)
     {
         _soundVolume = value;
     }
@@ -72,7 +72,7 @@ public class EffectsPool : MonoBehaviour
         effect.SetActive(false);
     }
 
-    private void PlayRollingEffect(Vector3 position)
+    private void OnRolling(Vector3 position)
     {
         _audioSource.volume = _soundVolume;
         transform.position = position;
@@ -85,7 +85,7 @@ public class EffectsPool : MonoBehaviour
         }
     }
 
-    public void PlayJumpEffect(Vector3 position)
+    public void OnJump(Vector3 position)
     {
         _audioSource.Stop();
         _audioSource.volume = _soundVolume;
@@ -95,7 +95,7 @@ public class EffectsPool : MonoBehaviour
         _audioSource.Play();
     }
 
-    public void PlayDieEffect(Vector3 position)
+    public void OnDied(Vector3 position)
     {
         _audioSource.volume = _soundVolume;
         transform.position = position;
@@ -108,7 +108,7 @@ public class EffectsPool : MonoBehaviour
         }
     }
 
-    private void PlayCollectEffect(Vector3 position)
+    private void OnGemCollected(Vector3 position)
     {
         var effect = _collectEffectsPool.Where(p => p.activeSelf == false).FirstOrDefault();
         AudioSource audioSource;

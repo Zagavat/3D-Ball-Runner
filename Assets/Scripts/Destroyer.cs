@@ -10,7 +10,7 @@ public class Destroyer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Respawn")
+        if (other.TryGetComponent<SpawnTrigger>(out SpawnTrigger spawnTrigger) == true)
         {
             GameObject target = other.transform.parent.gameObject;
             RoadDestroyTriggerReached?.Invoke(target);
